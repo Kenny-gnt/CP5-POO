@@ -1,5 +1,6 @@
 package br.com.fiap.petfiap.service;
 
+import java.util.Objects;
 import br.com.fiap.petfiap.exception.AtendimentoNaoEncontradoException;
 import br.com.fiap.petfiap.exception.HorarioOcupadoException;
 import br.com.fiap.petfiap.model.Atendimento;
@@ -20,8 +21,9 @@ public class AgendaService {
     public Atendimento agendar(Atendimento novo) {
         List<Atendimento> doPet = repository.findByPetNome(novo.getPetNome());
         for (Atendimento a : doPet) {
-            if (a.getPetNome() == novo.getPetNome() && a.getDataHora() == novo.getDataHora()
-                    && "AGENDADO".equals(a.getStatus())) {
+        	if (Objects.equals(a.getPetNome(), novo.getPetNome())
+        	        && Objects.equals(a.getDataHora(), novo.getDataHora())
+        	        && "AGENDADO".equals(a.getStatus())) {
                 throw new HorarioOcupadoException(
                         "Pet " + novo.getPetNome() + " ja possui atendimento agendado nesse horario");
             }
