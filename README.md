@@ -11,7 +11,7 @@
 | Ana Luiza | RM563171 | 2CCPG |
 | Anny Elly| RM565055 | 2CCPG |
 | Gisleine | RM563804 | 2CCPG |
-| Larissa | RM56416 | 2CCPG |
+| Larissa | RM564168 | 2CCPG |
 | Raira | RM564850 | 2CCPG |
 | Sofia | Rm562767 | 2CCPG |
 
