@@ -14,11 +14,18 @@ import java.util.List;
 @Service
 public class AgendaService {
 
-    @Autowired
     private AtendimentoRepository repository;
+
+    public AgendaService(AtendimentoRepository repository) {
+        this.repository = repository;
+    }
 
     // Agenda um novo atendimento: recusa horario ja ocupado pelo mesmo pet.
     public Atendimento agendar(Atendimento novo) {
+        if (novo.getDataHora() == null || novo.getDataHora().isBefore(java.time.LocalDateTime.now())) {
+            throw new IllegalArgumentException("Data e hora do atendimento devem ser futuras");
+        }
+        
         List<Atendimento> doPet = repository.findByPetNome(novo.getPetNome());
         for (Atendimento a : doPet) {
         	if (Objects.equals(a.getPetNome(), novo.getPetNome())
