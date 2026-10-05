@@ -124,4 +124,29 @@ public class AgendaServiceTest {
         // Nada e salvo quando a operacao e recusada
         verify(repository, never()).save(any());
     }
+    @Test
+    public void deveRecusarAgendamentoNoPassadoSemConsultarRepositorio() {
+        // Arrange
+        Banho atendimentoPassado = new Banho(10, "Rex", "PEQUENO", "Ana", LocalDateTime.now().minusMinutes(1));
+
+        // Act + Assert
+        assertThrows(IllegalArgumentException.class, () -> service.agendar(atendimentoPassado));
+        verify(repository, never()).findByPetNome(any());
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+    public void deveCancelarAtendimentoAgendado() {
+        // Arrange
+        Banho agendado = banhoDoRexAmanha10h();
+        when(repository.findById(2L)).thenReturn(Optional.of(agendado));
+        when(repository.save(agendado)).thenReturn(agendado);
+
+        // Act
+        Atendimento cancelado = service.cancelar(2L);
+
+        // Assert
+        assertEquals("CANCELADO", cancelado.getStatus());
+        verify(repository).save(agendado);
+    }
 }
