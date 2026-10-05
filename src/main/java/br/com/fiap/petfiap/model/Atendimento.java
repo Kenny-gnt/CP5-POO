@@ -11,6 +11,10 @@ import java.time.LocalDateTime;
 @Table(name = "atendimentos")
 public abstract class Atendimento {
 
+    public static final String STATUS_AGENDADO = "AGENDADO";
+    public static final String STATUS_CONCLUIDO = "CONCLUIDO";
+    public static final String STATUS_CANCELADO = "CANCELADO";
+
     @Id
     private Long id;
 
